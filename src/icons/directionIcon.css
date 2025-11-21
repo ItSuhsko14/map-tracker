@@ -1,0 +1,6 @@
+.direction-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 3 s ease;
+}
