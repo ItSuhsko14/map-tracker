@@ -58,6 +58,15 @@ function ObjectList({ objects }: ObjectListProps) {
             </Typography>
 
             <Typography variant='body2' color='text.secondary'>
+              {obj.lat >= 0 ? 'N ' : 'S '}
+              {Math.abs(obj.lat).toFixed(2)}°
+            </Typography>
+
+            <Typography variant='body2' color='text.secondary'>
+              {obj.lng >= 0 ? 'E ' : 'W '}
+              {Math.abs(obj.lng).toFixed(2)}°
+            </Typography>
+            <Typography variant='body2' color='text.secondary'>
               Direction: {Math.round(obj.direction)}°
             </Typography>
 
