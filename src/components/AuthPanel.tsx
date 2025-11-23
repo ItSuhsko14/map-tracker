@@ -13,24 +13,20 @@ const AuthPanel = observer(() => {
 
   if (authStore.isAuthorized) {
     return (
-      <Paper
-        elevation={4}
+      <Button
+        variant='outlined'
+        onClick={authStore.logout}
         sx={{
           position: 'absolute',
-          top: 16,
-          left: 16,
-          width: 160,
-          p: 1.5,
-          borderRadius: 2,
+          top: { xs: 8, sm: 16 },
+          left: { xs: 8, sm: 16 },
+          zIndex: 10000,
           bgcolor: 'rgba(255,255,255,0.95)',
           backdropFilter: 'blur(6px)',
-          zIndex: 9999,
         }}
       >
-        <Button variant='outlined' color='error' fullWidth onClick={authStore.logout}>
-          Logout
-        </Button>
-      </Paper>
+        LOGOUT
+      </Button>
     );
   }
 

@@ -1,4 +1,4 @@
-import { Stack, Typography, Paper } from '@mui/material';
+import { Stack, Typography, Paper, Box } from '@mui/material';
 import { directionIcon } from '../icons/directionIcon';
 import L from 'leaflet';
 
@@ -9,11 +9,19 @@ function LegendItem({ color, label }: { color: string; label: string }) {
 
   return (
     <Stack direction='row' spacing={1} alignItems='center'>
-      <span
+      <Box
+        sx={{
+          width: { xs: 14, sm: 20 },
+          height: { xs: 14, sm: 20 },
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
         dangerouslySetInnerHTML={{ __html: icon.options.html ?? '' }}
-        style={{ width: 24, height: 24, display: 'inline-block' }}
       />
-      <Typography variant='body2'>{label}</Typography>
+      <Typography variant='body2' sx={{ fontSize: { xs: '0.7rem', sm: '0.85rem' } }}>
+        {label}
+      </Typography>
     </Stack>
   );
 }
@@ -21,26 +29,35 @@ function LegendItem({ color, label }: { color: string; label: string }) {
 export default function MapLegend() {
   return (
     <Paper
-      elevation={4}
+      elevation={3}
       sx={{
         position: 'absolute',
-        bottom: 16,
-        left: 16,
-        p: 2,
+        bottom: { xs: 8, sm: 16 },
+        left: { xs: 8, sm: 16 },
+        p: { xs: 0.8, sm: 1.5 },
         borderRadius: 2,
         bgcolor: 'rgba(255,255,255,0.9)',
-        backdropFilter: 'blur(6px)',
+        backdropFilter: 'blur(4px)',
         zIndex: 9999,
+        width: { xs: 'auto', sm: '140px' },
+        maxWidth: { xs: '120px', sm: '160px' },
       }}
     >
-      <Typography variant='subtitle2' fontWeight='bold' mb={1}>
+      <Typography
+        variant='subtitle2'
+        fontWeight='bold'
+        mb={0.5}
+        sx={{
+          fontSize: { xs: '0.75rem', sm: '0.85rem' },
+        }}
+      >
         Legend
       </Typography>
 
-      <Stack spacing={1}>
-        <LegendItem color='green' label='Active object' />
-        <LegendItem color='red' label='Selected object' />
-        <LegendItem color='grey' label='Lost object' />
+      <Stack spacing={0.5}>
+        <LegendItem color='green' label='Active' />
+        <LegendItem color='red' label='Selected' />
+        <LegendItem color='grey' label='Lost' />
       </Stack>
     </Paper>
   );

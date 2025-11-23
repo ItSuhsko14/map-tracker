@@ -34,33 +34,34 @@ const ObjectList = observer(({ objects }: ObjectListProps) => {
       elevation={4}
       sx={{
         position: 'absolute',
-        top: 16,
-        right: 16,
-        width: 260,
-        maxHeight: '80vh',
+        top: { xs: 6, sm: 16 },
+        right: { xs: 6, sm: 16 },
+        width: { xs: '65vw', sm: 260 },
+        maxHeight: { xs: '55vh', sm: '80vh' },
         overflowY: 'auto',
-        padding: 2,
+        p: { xs: 0.6, sm: 2 },
         borderRadius: 2,
         bgcolor: 'rgba(255,255,255,0.9)',
         backdropFilter: 'blur(6px)',
         zIndex: 9999,
       }}
     >
-      <Typography variant='subtitle1' fontWeight='bold'>
+      <Typography
+        variant='subtitle2'
+        fontWeight='bold'
+        sx={{ fontSize: { xs: '0.8rem', sm: '1rem' } }}
+      >
         Objects list ({objects.length})
       </Typography>
 
-      <Divider sx={{ mb: 1 }} />
+      <Divider sx={{ mb: { xs: 0.5, sm: 1 } }} />
 
-      <Stack spacing={1.2}>
+      <Stack spacing={{ xs: 0.6, sm: 1.2 }}>
         {sorted.map((obj) => (
           <Box
-            ref={(el: HTMLDivElement | null) => {
-              if (el) {
-                itemRefs.current.set(obj.id, el);
-              } else {
-                itemRefs.current.delete(obj.id);
-              }
+            ref={(el) => {
+              if (el) itemRefs.current.set(obj.id, el);
+              else itemRefs.current.delete(obj.id);
             }}
             key={obj.id}
             onClick={() => objectsStore.setSelected(obj.id)}
@@ -75,25 +76,32 @@ const ObjectList = observer(({ objects }: ObjectListProps) => {
                   ? '2px solid rgba(238, 13, 5, 0.74)'
                   : '2px solid transparent',
               borderRadius: 1,
-              padding: 1,
+              p: { xs: 0.6, sm: 1 },
             }}
           >
             <Typography
-              variant='body2'
               fontWeight='bold'
-              color={obj.status === 'lost' ? 'error.main' : 'success.main'}
+              sx={{
+                fontSize: { xs: '0.75rem', sm: '0.9rem' },
+                color: obj.status === 'lost' ? 'error.main' : 'success.main',
+              }}
             >
-              {obj.id} - {obj.status}
+              {obj.id} — {obj.status}
             </Typography>
 
-            <Typography variant='body2' color='text.secondary'>
+            <Typography
+              sx={{
+                fontSize: { xs: '0.7rem', sm: '0.85rem' },
+                color: 'text.secondary',
+              }}
+            >
               {obj.lat >= 0 ? 'N ' : 'S '}
-              {Math.abs(obj.lat).toFixed(2)}° {obj.lng >= 0 ? ' E ' : ' W '}
-              {Math.abs(obj.lng).toFixed(2)}° D:{' '}
-              {obj.direction !== undefined ? Math.round(obj.direction) : 'N/A'}°
+              {Math.abs(obj.lat).toFixed(2)}° •{obj.lng >= 0 ? ' E ' : ' W '}
+              {Math.abs(obj.lng).toFixed(2)}° • D:
+              {obj.direction ? Math.round(obj.direction) : 'N/A'}°
             </Typography>
 
-            <Divider sx={{ mt: 1 }} />
+            <Divider sx={{ mt: { xs: 0.4, sm: 1 } }} />
           </Box>
         ))}
       </Stack>
