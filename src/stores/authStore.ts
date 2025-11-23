@@ -25,7 +25,7 @@ class AuthStore {
       if (data.authorized) {
         webSocketManager.connect();
       }
-    } catch (e) {
+    } catch {
       this.isAuthorized = false;
     }
   }

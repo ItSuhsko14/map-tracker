@@ -1,10 +1,8 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, observable } from 'mobx';
 import type { ObjectItem } from '../types/ObjectItem';
 
-export type ObjectStatus = 'active' | 'lost';
-
 export interface TrackedObject extends ObjectItem {
-  status: ObjectStatus;
+  status: 'active' | 'lost';
   lastSeenAt: number;
 }
 
@@ -12,7 +10,7 @@ const LOST_AFTER_MS = 3_000;
 const REMOVE_AFTER_MS = 10_000;
 
 class ObjectsStore {
-  objects = new Map<string, TrackedObject>();
+  objects = observable.map<string, TrackedObject>();
   selectedObjectId: string | null = null;
 
   constructor() {
@@ -67,6 +65,9 @@ class ObjectsStore {
       const diff = now - obj.lastSeenAt;
 
       if (diff > REMOVE_AFTER_MS) {
+        if (this.selectedObjectId === id) {
+          this.selectedObjectId = null;
+        }
         this.objects.delete(id);
         return;
       }

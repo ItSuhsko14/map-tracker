@@ -1,8 +1,8 @@
 export interface ObjectItem {
   id: string;
+  name: string;
   lat: number;
   lng: number;
-  direction: number;
-  updatedAt: number;
+  direction?: number;
   status: 'active' | 'lost';
 }

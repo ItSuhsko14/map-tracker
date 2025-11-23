@@ -4,6 +4,7 @@ import { directionIcon } from '../icons/directionIcon';
 import MapController from './MapController';
 import type { ObjectItem } from '../types/ObjectItem';
 import { objectsStore } from '../stores/objectsStore';
+import MapFollowSelected from './MapFollowSelected';
 
 interface MapViewProps {
   objects: ObjectItem[];
@@ -13,6 +14,7 @@ function MapView({ objects }: MapViewProps) {
   return (
     <MapContainer style={{ height: '100vh', width: '100vw' }}>
       <MapController />
+      <MapFollowSelected />
 
       <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
 
@@ -22,14 +24,15 @@ function MapView({ objects }: MapViewProps) {
 
         return (
           <MarkerWithIcon
-            key={obj.id + obj.direction}
+            key={obj.id}
             position={[obj.lat, obj.lng]}
             icon={directionIcon(color)}
             rotationAngle={obj.direction}
             rotationOrigin='center'
           >
             <Tooltip>
-              {obj.id} ({obj.direction.toFixed(0)}°)
+              {obj.name || obj.id}{' '}
+              {obj.direction !== undefined ? `(${obj.direction.toFixed(0)}°)` : ''}
               <br />
               status: {obj.status}
             </Tooltip>

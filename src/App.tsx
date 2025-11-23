@@ -1,5 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import MapPage from './pages/MapPage';
+import TrackerView from './components/TrackerViewComponent';
 import { useEffect } from 'react';
 import { webSocketManager } from './setup/WebSocketManager';
 import { StoreProvider } from './stores/useStores';
@@ -17,13 +16,9 @@ function App() {
   }, [objectsStore]);
 
   return (
-    <BrowserRouter>
-      <StoreProvider>
-        <Routes>
-          <Route path='/' element={<MapPage />} />
-        </Routes>
-      </StoreProvider>
-    </BrowserRouter>
+    <StoreProvider>
+      <TrackerView />
+    </StoreProvider>
   );
 }
 
