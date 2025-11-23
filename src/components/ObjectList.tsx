@@ -29,6 +29,13 @@ const ObjectList = observer(({ objects }: ObjectListProps) => {
     }
   }, []);
 
+  useEffect(() => {
+    const refs = itemRefs.current;
+    return () => {
+      refs.clear();
+    };
+  }, []);
+
   return (
     <Paper
       elevation={4}
@@ -59,7 +66,7 @@ const ObjectList = observer(({ objects }: ObjectListProps) => {
       <Stack spacing={{ xs: 0.6, sm: 1.2 }}>
         {sorted.map((obj) => (
           <Box
-            ref={(el) => {
+            ref={(el: HTMLDivElement | null) => {
               if (el) itemRefs.current.set(obj.id, el);
               else itemRefs.current.delete(obj.id);
             }}
